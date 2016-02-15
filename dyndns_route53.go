@@ -113,7 +113,7 @@ func main() {
 		perror(err, log)
 
 		// Pretty-print the response data.
-		log.Debug(resp)
+		log.Debugf("Route53 response: %v", resp)
 
 	} else {
 		log.Infof("'%s' is up-to-date", config.Fqdn)
