@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -61,7 +62,11 @@ func main() {
 
 	// Request your WAN ip
 	url := "https://api.ipify.org?format=json"
-	res, err := http.Get(url)
+	timeout := time.Duration(5 * time.Second)
+	client := http.Client{
+		Timeout: timeout,
+	}
+	res, err := client.Get(url)
 	perror(err, log)
 	defer res.Body.Close()
 	decoder = json.NewDecoder(res.Body)
