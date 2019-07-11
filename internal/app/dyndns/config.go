@@ -1,4 +1,4 @@
-package masl
+package dyndns
 
 import (
 	"log"
