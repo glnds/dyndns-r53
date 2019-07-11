@@ -57,12 +57,13 @@ func main() {
 		logger.SetLevel(logrus.DebugLevel)
 	}
 
-	// wanIP := dyndns.GetWanIP(logger)
+	wanIP := dyndns.GetWanIP(logger)
 
-	// // Update the FQDN's IP in case the current WAN ip is different from the IP bounded to the FQDN
-	// if dyndns.getFqdnIP(conf, logger) != wanIp {
-	// 	dyndns.UpdateFqdnIP(conf, logger)
-	// } else {
-	// 	logger.Infof("'%s' is up-to-date", config.Fqdn)
-	// }
+	// Update the FQDN's IP in case the current WAN ip is different from the IP bounded to the FQDN
+	if dyndns.GetFqdnIP(conf, logger) != wanIP {
+		logger.Infof("'%s' out-of-date update to '%s'", conf.Fqdn, wanIP)
+		dyndns.UpdateFqdnIP(conf, logger, wanIP)
+	} else {
+		logger.Infof("'%s' is up-to-date", conf.Fqdn)
+	}
 }
