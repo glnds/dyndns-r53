@@ -1,18 +1,11 @@
 package main
 
 import (
-	// "encoding/json"
-	// "net"
-	// "net/http"
+	"flag"
+	"fmt"
 	"os"
 	"os/user"
-	// "path"
 
-	// "github.com/aws/aws-sdk-go/aws"
-	// "github.com/aws/aws-sdk-go/aws/credentials"
-	// "github.com/aws/aws-sdk-go/aws/session"
-	// "github.com/aws/aws-sdk-go/service/route53"
-	// "github.com/kardianos/osext"
 	"github.com/glnds/dyndns-r53/internal/app/dyndns"
 
 	"github.com/sirupsen/logrus"
@@ -22,9 +15,10 @@ var logger = logrus.New()
 
 var version, build string
 
-// type Response struct {
-// 	Ip string
-// }
+// CLIFlags represents the command line flags
+type CLIFlags struct {
+	Version bool
+}
 
 func main() {
 
@@ -57,6 +51,12 @@ func main() {
 		logger.SetLevel(logrus.DebugLevel)
 	}
 
+	// Read the command line flags
+	flags := parseFlags(conf)
+	logger.WithFields(logrus.Fields{
+		"flags": flags,
+	}).Info("Parsed the commandline flags")
+
 	wanIP := dyndns.GetWanIP(logger)
 
 	// Update the FQDN's IP in case the current WAN ip is different from the IP bounded to the FQDN
@@ -66,4 +66,16 @@ func main() {
 	} else {
 		logger.Infof("'%s' is up-to-date", conf.Fqdn)
 	}
+}
+
+func parseFlags(conf dyndns.Config) CLIFlags {
+	flags := new(CLIFlags)
+
+	flag.BoolVar(&flags.Version, "version", false, "prints MASL version")
+	flag.Parse()
+	if flags.Version {
+		fmt.Printf("masl version: %s, build: %s\n", version, build)
+		os.Exit(0)
+	}
+	return *flags
 }

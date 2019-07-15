@@ -1,11 +1,10 @@
 SHELL := /bin/bash
 
-BIN_DIR := $(GOPATH)/bin
 PLATFORMS := windows linux darwin
-BINARY := masl
+BINARY := dyndsn-r53
 
 # These will be provided to the target
-VERSION := 1.2.6
+VERSION := 1.0.0
 BUILD := `git rev-parse HEAD`
 
 # Use linker flags to provide version/build settings to the target
@@ -16,14 +15,14 @@ os = $(word 1, $@)
 PKGS := $(shell go list ./... | grep -v /vendor)
 
 clean:
-	go clean
-	rm -f masl
-	rm -f masl.exe
+	# go clean
+	rm -f dyndns-r53
+	rm -f dyndns-r53.exe
 	rm -rf release/
 .PHONY: clean
 
 build:
-	go build $(LDFLAGS) cmd/masl/masl.go
+	go build $(LDFLAGS) cmd/dyndns-r53.go
 .PHONY: build
 
 test:
@@ -36,11 +35,11 @@ lint:
 
 $(PLATFORMS):
 	mkdir -p release
-	GOOS=$(os) GOARCH=amd64 go build $(LDFLAGS) -o release/$(BINARY)-v$(VERSION)-$(os)-amd64 cmd/masl/masl.go
+	GOOS=$(os) GOARCH=amd64 go build $(LDFLAGS) -o release/$(BINARY)-v$(VERSION)-$(os)-amd64 cmd/dyndns-r53.go
 .PHONY: $(PLATFORMS)
 
 install:
-	@go install $(LDFLAGS) cmd/masl/masl.go
+	@go install $(LDFLAGS) cmd/dyndns-r53.go
 
 # run "make release -j3
 release: windows linux darwin

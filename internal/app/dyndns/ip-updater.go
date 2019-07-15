@@ -56,9 +56,8 @@ func UpdateFqdnIP(conf Config, log *logrus.Logger, ip string) {
 	var token string
 	creds := credentials.NewStaticCredentials(conf.AccessKeyID, conf.SecretAccessKey, token)
 
-	svc := route53.New(session.New(), &aws.Config{
-		Credentials: creds,
-	})
+	sess := session.Must(session.NewSession())
+	svc := route53.New(sess, &aws.Config{Credentials: creds})
 
 	params := &route53.ChangeResourceRecordSetsInput{
 		ChangeBatch: &route53.ChangeBatch{
