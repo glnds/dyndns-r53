@@ -1,8 +1,6 @@
 [![CircleCI](https://circleci.com/gh/glnds/dyndns_route53.svg?style=svg)](https://circleci.com/gh/glnds/dyndns_route53)
 [![Go Report Card](https://goreportcard.com/badge/github.com/glnds/dyndns-r53)](https://goreportcard.com/report/github.com/glnds/dyndns-r53)
 
-
-
 # DynDNS Route53
 This is a little program written in [Go](https://golang.org/project/) that 
 takes the WAN ip of your current infrastructure to update a hostname hosted
