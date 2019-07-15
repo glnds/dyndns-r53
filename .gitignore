@@ -1,3 +1,29 @@
-*.json
-*.log
-dyndns_route53
+
+# Ignore Binaries for programs and plugins
+*
+!*.*
+!*/
+!Makefile
+!LICENSE
+
+*.exe
+*.dll
+*.so
+*.dylib
+.DS_Store
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
+.glide/
+
+# TOML config files
+.dyndns-r53.toml
+
+.idea/
+
+release/
