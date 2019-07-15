@@ -45,17 +45,17 @@ func main() {
 	logger.Info("------------------ Starting IP update...  ------------------")
 	logger.SetLevel(logrus.InfoLevel)
 
+	// Read the command line flags
+	flags := parseFlags()
+	logger.WithFields(logrus.Fields{
+		"flags": flags,
+	}).Info("Parsed the commandline flags")
+
 	//  Read config file
 	conf := dyndns.GetConfig(logger)
 	if conf.Debug {
 		logger.SetLevel(logrus.DebugLevel)
 	}
-
-	// Read the command line flags
-	flags := parseFlags(conf)
-	logger.WithFields(logrus.Fields{
-		"flags": flags,
-	}).Info("Parsed the commandline flags")
 
 	wanIP := dyndns.GetWanIP(logger)
 
@@ -68,13 +68,13 @@ func main() {
 	}
 }
 
-func parseFlags(conf dyndns.Config) CLIFlags {
+func parseFlags() CLIFlags {
 	flags := new(CLIFlags)
 
 	flag.BoolVar(&flags.Version, "version", false, "prints MASL version")
 	flag.Parse()
 	if flags.Version {
-		fmt.Printf("masl version: %s, build: %s\n", version, build)
+		fmt.Printf("dyndsn-r53 version: %s, build: %s\n", version, build)
 		os.Exit(0)
 	}
 	return *flags
