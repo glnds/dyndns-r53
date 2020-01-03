@@ -35,14 +35,12 @@ Here's how I build an executable binary for my NAS:
 ```
 
 ### Configuration
-Put a file named `config.json` in the same directory as you executable. A file   named `config.example` is included in the repository to make your life easy. It looks like this:
+Put a file named `.dyndns-r53.toml` in your userdirectory. A file named `config.example` is included in the repository to make your life easy. It looks like this:
 ```
-{
-  "aws_access_key_id":    "ABC...",
-  "aws_secret_access_key: "XYZ...",
-  "hosted_zone_id":       "A1..",
-  "fqdn":                 "www.example.com"
-}
+AccessKeyID	= "ABC..."
+SecretAccessKey	= "XYZ..."
+HostedZoneID = "A1..."
+Fqdn = "www.example.com"
 ```
 
 ### Logging
