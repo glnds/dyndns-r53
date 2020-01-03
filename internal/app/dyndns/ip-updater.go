@@ -1,11 +1,9 @@
 package dyndns
 
 import (
-	"encoding/json"
+	"io/ioutil"
 	"net"
 	"net/http"
-	"time"
-	// "path"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -14,31 +12,31 @@ import (
 
 	"github.com/sirupsen/logrus"
 )
-
+/*
 type response struct {
 	ip string
 }
-
+*/
 // GetWanIP Call to ipify.org to obtain the host's WAM IP address.
-func GetWanIP(log *logrus.Logger) string {
-	url := "https://api.ipify.org?format=json"
-	timeout := time.Duration(30 * time.Second)
-	client := http.Client{
-		Timeout: timeout,
-	}
-	resp, err := client.Get(url)
+func GetWanIP(log *logrus.Logger) string { 
+	
+	url := "https://api.ipify.org?format=text"	
+      	// https://www.ipify.org
+      	// http://myexternalip.com
+      	// http://api.ident.me
+      	// http://whatismyipaddress.com/api
+	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalln(err)
+		panic(err)
 	}
 	defer resp.Body.Close()
-
-	decoder := json.NewDecoder(resp.Body)
-	var body response
-	if err := decoder.Decode(&body); err != nil {
-		log.Fatalln(err)
+	ip, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
 	}
-	log.Debugf("Current WAN ip: %s", body.ip)
-	return body.ip
+
+	log.Debugf("Current WAN ip: %s", ip)
+	return string(ip)
 }
 
 // GetFqdnIP Get the FQDN's current IP address
