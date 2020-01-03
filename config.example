@@ -1,6 +1,4 @@
-{
-  "aws_access_key_id":    "ABC...",
-  "aws_secret_access_key: "XYZ...",
-  "hosted_zone_id":       "A1..",
-  "fqdn":                 "www.example.com"
-}
+AccessKeyID	    = "ABC..."
+SecretAccessKey	= "XYZ..."
+HostedZoneID	  = "A1..."
+Fqdn		        = "www.example.com"
