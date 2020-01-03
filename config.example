@@ -1,4 +1,4 @@
-AccessKeyID	    = "ABC..."
+AccessKeyID	= "ABC..."
 SecretAccessKey	= "XYZ..."
-HostedZoneID	  = "A1..."
-Fqdn		        = "www.example.com"
+HostedZoneID = "A1..."
+Fqdn = "www.example.com"
