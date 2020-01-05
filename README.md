@@ -35,7 +35,7 @@ Here's how I build an executable binary for my NAS:
 ```
 
 ### Configuration
-Put a file named `.dyndns-r53.toml` in your userdirectory. A file named `config.example` is included in the repository to make your life easy. It looks like this:
+Put a file named `.dyndns-r53.toml` in your user directory. A file named `config.example` is included in the repository to make your life easy. It looks like this:
 ```
 AccessKeyID	= "ABC..."
 SecretAccessKey	= "XYZ..."
@@ -44,7 +44,7 @@ Fqdn = "www.example.com"
 ```
 
 ### Logging
-The program will write its output to a file named `dyndns.log` under the same directory as you executable.
+The program will write its output to a file named `.dyndns-r53.log` in your user directory.
 
 ## Usage
 
