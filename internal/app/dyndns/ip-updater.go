@@ -27,12 +27,12 @@ func GetWanIP(log *logrus.Logger) string {
       	// http://whatismyipaddress.com/api
 	resp, err := http.Get(url)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	defer resp.Body.Close()
 	ip, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	log.Debugf("Current WAN ip: %s", ip)
