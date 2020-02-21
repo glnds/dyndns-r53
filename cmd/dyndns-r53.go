@@ -29,7 +29,7 @@ func main() {
 
 	// Create the logger file if doesn't exist. Append to it if it already exists.
 	var filename = "dyndns-r53.log"
-	file, err := os.OpenFile(usr.HomeDir+string(os.PathSeparator)+filename,
+	file, err := os.OpenFile(usr.HomeDir+string(os.PathSeparator)+".dyndns"+string(os.PathSeparator)+filename,
 		os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0600)
 	Formatter := new(logrus.TextFormatter)
 	Formatter.TimestampFormat = "02-01-2006 15:04:05"

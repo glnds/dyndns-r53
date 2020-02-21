@@ -28,7 +28,7 @@ func GetConfig(logger *logrus.Logger) Config {
 
 	// Read dyndns-r53.toml config file for initialization
 	conf := Config{Debug: false} // Set default values
-	if _, err := toml.DecodeFile(usr.HomeDir+string(os.PathSeparator)+".dyndns-r53.toml", &conf); err != nil {
+	if _, err := toml.DecodeFile(usr.HomeDir+string(os.PathSeparator)+".dyndns"+string(os.PathSeparator)+"config.toml", &conf); err != nil {
 		log.Fatal(err.Error())
 	}
 

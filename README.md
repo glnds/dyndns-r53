@@ -2,20 +2,20 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/glnds/dyndns-r53)](https://goreportcard.com/report/github.com/glnds/dyndns-r53)
 
 # DynDNS Route53
-This is a little program written in [Go](https://golang.org/project/) that 
-takes the WAN ip of your current infrastructure to update a hostname 
+This is a little program written in [Go](https://golang.org/project/) that
+takes the WAN ip of your current infrastructure to update a hostname
 on [Amazon Route53](https://aws.amazon.com/route53/).
 
 ## Installation
 
 ### Make a binary
 The main reasons to choose Go to develop this tool was the fact
-that Go can build executable binaries. This makes installation very easy. Secondly 
+that Go can build executable binaries. This makes installation very easy. Secondly
 with Go it's also very easy to cross compile the program for different platforms.
 
 To make a binary just run:
 ```
-go build dyndns_route53.go
+make build
 ```
 This will result in an executable binary named `dyndns_route53`.
 
@@ -35,14 +35,17 @@ Here's how I build an executable binary for my NAS:
 ```
 
 ### Configuration
-Put a file named `config.json` in the same directory as you executable. A file   named `config.example` is included in the repository to make your life easy. It looks like this:
+All configuration is done using a `.dyndns/config.toml` file in your user's home directory.
+An example toml config file is included: [config.example](https://github.com/glnds/dyndns-r53/blob/master/config.example).
+Copy `config.example` and rename it to `.dyndns/config.toml`. Adjust the values to reflect your environment.
+
+The minimal configuration should look like this:
 ```
-{
-  "aws_access_key_id":    "ABC...",
-  "aws_secret_access_key: "XYZ...",
-  "hosted_zone_id":       "A1..",
-  "fqdn":                 "www.example.com"
-}
+AccessKeyID = 'AWS Access Key ID'
+SecretAccessKey = 'AWS Secret Access Key'
+HostedZoneID = 'Route53 Hosted Zone ID'
+Fqdn = 'www.example.com'
+Debug = true
 ```
 
 ### Logging
