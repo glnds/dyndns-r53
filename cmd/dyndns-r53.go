@@ -28,7 +28,7 @@ func main() {
 	}
 
 	// Create the logger file if doesn't exist. Append to it if it already exists.
-	var filename = ".dyndns-r53.log"
+	var filename = "dyndns-r53.log"
 	file, err := os.OpenFile(usr.HomeDir+string(os.PathSeparator)+filename,
 		os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0600)
 	Formatter := new(logrus.TextFormatter)
@@ -71,7 +71,7 @@ func main() {
 func parseFlags() CLIFlags {
 	flags := new(CLIFlags)
 
-	flag.BoolVar(&flags.Version, "version", false, "prints MASL version")
+	flag.BoolVar(&flags.Version, "version", false, "prints dyndns-r53 version")
 	flag.Parse()
 	if flags.Version {
 		fmt.Printf("dyndsn-r53 version: %s, build: %s\n", version, build)

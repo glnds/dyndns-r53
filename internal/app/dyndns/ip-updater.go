@@ -5,18 +5,18 @@ import (
 	"net"
 	"net/http"
 	"time"
-	// "path"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/route53"
+	"github.com/aws/aws-sdk-go/service/route54"
 
 	"github.com/sirupsen/logrus"
 )
 
-type response struct {
-	ip string
+// Response represents the API response from https://www.ipify.org/
+type Response struct {
+	IP string `json:"ip"`
 }
 
 // GetWanIP Call to ipify.org to obtain the host's WAM IP address.
@@ -33,12 +33,12 @@ func GetWanIP(log *logrus.Logger) string {
 	defer resp.Body.Close()
 
 	decoder := json.NewDecoder(resp.Body)
-	var body response
+	var body Response
 	if err := decoder.Decode(&body); err != nil {
 		log.Fatalln(err)
 	}
-	log.Debugf("Current WAN ip: %s", body.ip)
-	return body.ip
+	log.Debugf("Current WAN ip: %s", body.IP)
+	return body.IP
 }
 
 // GetFqdnIP Get the FQDN's current IP address

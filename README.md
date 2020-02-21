@@ -3,14 +3,14 @@
 
 # DynDNS Route53
 This is a little program written in [Go](https://golang.org/project/) that 
-takes the WAN ip of your current infrastructure to update a hostname hosted
+takes the WAN ip of your current infrastructure to update a hostname 
 on [Amazon Route53](https://aws.amazon.com/route53/).
 
 ## Installation
 
 ### Make a binary
-One of the main reasons to choose Go to develop this program was the fact
-that Go can build executable binaries, which makes installation very easy. Secondly 
+The main reasons to choose Go to develop this tool was the fact
+that Go can build executable binaries. This makes installation very easy. Secondly 
 with Go it's also very easy to cross compile the program for different platforms.
 
 To make a binary just run:

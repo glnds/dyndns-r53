@@ -33,11 +33,10 @@ func GetConfig(logger *logrus.Logger) Config {
 	}
 
 	logger.WithFields(logrus.Fields{
-		"AccessKeyID":     conf.AccessKeyID,
-		"SecretAccessKey": conf.SecretAccessKey,
-		"HostedZoneID":    conf.HostedZoneID,
-		"Fqdn":            conf.Fqdn,
-		"Debug":           conf.Debug,
+		"AccessKeyID":  conf.AccessKeyID,
+		"HostedZoneID": conf.HostedZoneID,
+		"Fqdn":         conf.Fqdn,
+		"Debug":        conf.Debug,
 	}).Info("Config settings")
 
 	return conf
