@@ -36,8 +36,8 @@ Here's how I build an executable binary for my NAS:
 
 ### Configuration
 All configuration is done using a `.dyndns/config.toml` file in your user's home directory.
-An example toml config file is included: [config.example](https://github.com/glnds/dyndns-r53/blob/master/config.example).
-Copy `config.example` and rename it to `.dyndns/config.toml`. Adjust the values to reflect your environment.
+An example [toml config file](https://github.com/glnds/dyndns-r53/blob/master/config.example) is
+included. Copy `config.example` and rename it to `.dyndns/config.toml`. Adjust the values to reflect your environment.
 
 The minimal configuration should look like this:
 ```
