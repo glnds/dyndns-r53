@@ -4,7 +4,7 @@ PLATFORMS := windows linux darwin
 BINARY := dyndsn-r53
 
 # These will be provided to the target
-VERSION := 1.1.0
+VERSION := 2.0.0
 BUILD := `git rev-parse HEAD`
 
 # Use linker flags to provide version/build settings to the target
