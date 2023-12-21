@@ -2,6 +2,7 @@ package dyndns
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net"
 	"net/http"
 	"time"
@@ -10,8 +11,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/route53"
-
-	"github.com/sirupsen/logrus"
 )
 
 // Response represents the API response from https://www.ipify.org/
@@ -20,7 +19,7 @@ type Response struct {
 }
 
 // GetWanIP Call to ipify.org to obtain the host's WAM IP address.
-func GetWanIP(log *logrus.Logger) string {
+func GetWanIP(log *slog.Logger) string {
 	url := "https://api.ipify.org?format=json"
 	timeout := time.Duration(30 * time.Second)
 	client := http.Client{
@@ -28,31 +27,31 @@ func GetWanIP(log *logrus.Logger) string {
 	}
 	resp, err := client.Get(url)
 	if err != nil {
-		log.Fatalln(err)
+		log.Error(err.Error())
 	}
 	defer resp.Body.Close()
 
 	decoder := json.NewDecoder(resp.Body)
 	var body Response
 	if err := decoder.Decode(&body); err != nil {
-		log.Fatalln(err)
+		log.Error(err.Error())
 	}
-	log.Debugf("Current WAN ip: %s", body.IP)
+	log.Debug("Current WAN ip", "IP", body.IP)
 	return body.IP
 }
 
 // GetFqdnIP Get the FQDN's current IP address
-func GetFqdnIP(conf Config, log *logrus.Logger) string {
+func GetFqdnIP(conf Config, log *slog.Logger) string {
 	ips, err := net.LookupHost(conf.Fqdn)
 	if err != nil {
-		log.Fatalln(err)
+		log.Error(err.Error())
 	}
-	log.Debugf("Current ip bounded to '%s': %s", conf.Fqdn, ips[0])
+	log.Debug("Current ip bounded to '%s': %s", conf.Fqdn, ips[0])
 	return ips[0]
 }
 
 // UpdateFqdnIP Update the FQDN with the current WAN IP address
-func UpdateFqdnIP(conf Config, log *logrus.Logger, ip string) {
+func UpdateFqdnIP(conf Config, log *slog.Logger, ip string) {
 	var token string
 	creds := credentials.NewStaticCredentials(conf.AccessKeyID, conf.SecretAccessKey, token)
 
@@ -78,9 +77,9 @@ func UpdateFqdnIP(conf Config, log *logrus.Logger, ip string) {
 	}
 	resp, err := svc.ChangeResourceRecordSets(params)
 	if err != nil {
-		log.Fatalln(err)
+		log.Error(err.Error())
 	}
 
 	// Pretty-print the response data.
-	log.Debugf("Route53 response: %v", resp)
+	log.Debug("Route53 response", "xx", resp.String())
 }

@@ -2,11 +2,11 @@ package dyndns
 
 import (
 	"log"
+	"log/slog"
 	"os"
 	"os/user"
 
 	"github.com/BurntSushi/toml"
-	"github.com/sirupsen/logrus"
 )
 
 // Config represents the application's config file
@@ -19,7 +19,7 @@ type Config struct {
 }
 
 // GetConfig reads the .dyndns-r53.toml configuration file for initialization.
-func GetConfig(logger *logrus.Logger) Config {
+func GetConfig(logger *slog.Logger) Config {
 
 	usr, err := user.Current()
 	if err != nil {
@@ -32,12 +32,8 @@ func GetConfig(logger *logrus.Logger) Config {
 		log.Fatal(err.Error())
 	}
 
-	logger.WithFields(logrus.Fields{
-		"AccessKeyID":  conf.AccessKeyID,
-		"HostedZoneID": conf.HostedZoneID,
-		"Fqdn":         conf.Fqdn,
-		"Debug":        conf.Debug,
-	}).Info("Config settings")
+	logger.Info("Config Settings", "AccessKeyID", conf.AccessKeyID, "HostedZoneID",
+		conf.HostedZoneID, "Fqdn", conf.Fqdn, "Debug", conf.Debug)
 
 	return conf
 }
