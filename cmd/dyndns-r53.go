@@ -38,7 +38,7 @@ func main() {
 	h := slog.NewTextHandler(file, &slog.HandlerOptions{Level: programLevel})
 	logger := slog.New(h)
 
-	logger.Info("------------------ Starting IP update...  ------------------")
+	logger.Info("------------------ Starting IP update ------------------")
 
 	// Read the command line flags
 	flags := parseFlags()
@@ -52,12 +52,12 @@ func main() {
 
 	wanIP := dyndns.GetWanIP(logger)
 
-	// Update the FQDN's IP in case the current WAN ip is different from the IP bounded to the FQDN
+	// Update the FQDN's IP in case the current WAN ip is different from the current FQDN IP
 	if dyndns.GetFqdnIP(conf, logger) != wanIP {
-		logger.Info("out-of-date update to", conf.Fqdn, wanIP)
+		logger.Info("FQDN out-of-date, update to", conf.Fqdn, wanIP)
 		dyndns.UpdateFqdnIP(conf, logger, wanIP)
 	} else {
-		logger.Info("'%s' is up-to-date", conf.Fqdn)
+		logger.Info("FQDN is up-to-date", conf.Fqdn, wanIP)
 	}
 }
 

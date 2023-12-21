@@ -32,7 +32,7 @@ func GetConfig(logger *slog.Logger) Config {
 		log.Fatal(err.Error())
 	}
 
-	logger.Info("Config Settings", "AccessKeyID", conf.AccessKeyID, "HostedZoneID",
+	logger.Info("Config values", "AccessKeyID", conf.AccessKeyID, "HostedZoneID",
 		conf.HostedZoneID, "Fqdn", conf.Fqdn, "Debug", conf.Debug)
 
 	return conf

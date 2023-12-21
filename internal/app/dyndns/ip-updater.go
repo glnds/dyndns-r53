@@ -36,7 +36,7 @@ func GetWanIP(log *slog.Logger) string {
 	if err := decoder.Decode(&body); err != nil {
 		log.Error(err.Error())
 	}
-	log.Debug("Current WAN ip", "IP", body.IP)
+	log.Debug("WAN status", "IP", body.IP)
 	return body.IP
 }
 
@@ -46,7 +46,7 @@ func GetFqdnIP(conf Config, log *slog.Logger) string {
 	if err != nil {
 		log.Error(err.Error())
 	}
-	log.Debug("Current ip bounded to '%s': %s", conf.Fqdn, ips[0])
+	log.Debug("FQDN status", conf.Fqdn, ips[0])
 	return ips[0]
 }
 
